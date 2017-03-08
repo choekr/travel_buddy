@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Travel Dashboard</title>
+    <link rel="stylesheet" type="text/css" href=" ">
+  </head>
+
+  <body>
+    <div id='welcome'>
+      {% if messages %}
+        {% for message in messages %}
+          <h1><p>{{message}}</p></h1>
+          <p id='success'>{{ request.session.notification }}</p>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+      <h2> Hello, {{request.session.user_name}}! </h2>
+
+      <p>Your Trip Schedules</p>
+      <table>
+        <tr>
+          <th>Destination</th>
+          <th>Travel Start Date</th>
+          <th>Travel End Date</th>
+          <th>Plan</th>
+        </tr>
+        {% for trip in trips %}
+          <tr>
+            <td><a href="{% url 'trip0:destination' id=trip.id %}">{{trip.destination}}</a></td>
+            <td>{{trip.start_date}}</td>
+            <td>{{trip.end_date|date:"M d Y"}}</td>
+            <td>{{trip.plan}}</td>
+          </tr>
+        {% endfor %}
+      </table>
+
+      <p>Other User's Travel Plans</p>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Destination</th>
+          <th>Travel Start Date</th>
+          <th>Travel End Date</th>
+          <th>Do You Want To Join?</th>
+        </tr> 
+        {% for trip in other_trips %}
+          <tr>
+            <td>{{trip.created_user.name}}</td>
+            <td><a href="{% url 'trip0:destination' id=trip.id %}">{{trip.destination}}</a></td>
+            <td>{{trip.start_date|date:"M d Y"}}</td>
+            <td>{{trip.end_date|date:"M d Y"}}</td>
+            <td><a href="{% url 'trip0:join' id=trip.id %}">Join</a></td>
+          </tr>
+        {% endfor %}
+      </table>
+
+    <a href="{% url 'trip0:add_trip' %}">Add Travel Plan</a>
+    <form action="{% url 'login_reg:logout' %}">
+      <input type='submit' value='logout'>
+    </form>
+  </body>
+
+</html>

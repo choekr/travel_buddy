@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Destination</title>
+    <link rel="stylesheet" type="text/css" href=" ">
+  </head>
+
+  <body>
+    <a href="{% url 'trip0:trips' %}">Back to main</a>
+    <form action="{% url 'login_reg:logout' %}">
+      <input type='submit' value='logout'>
+    </form>
+
+    {% for trip in destination %}
+      <h1>{{trip.destination}}</h1>
+      <p>Planned By: {{trip.created_user.name}}</p>
+      <p>Description: {{trip.plan}}</p>
+      <p>Travel Date From: {{trip.start_date|date:"M d Y"}}</p>
+      <p>Travel Date To: {{trip.end_date|date:"M d Y"}}</p>
+    {% endfor %}
+
+    <h1>Other users joining the trip</h1>
+    {% for user in joined_users %}
+      <p>{{user.name}}</p>
+    {% endfor %}
+  </body>
+
+</html>
