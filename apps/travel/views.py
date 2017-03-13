@@ -22,8 +22,8 @@ def add(request):
 
 def create(request):
   Trip.objects.create(destination=request.POST['destination'], plan=request.POST['description'], start_date=request.POST['start_date'], end_date=request.POST['end_date'], created_user=User.objects.get(id=request.session['user_id']))
-  print request.POST['start_date']
-  return redirect('trip0:trips')
+  print (request.POST['start_date'])
+  # return redirect('trip0:trips')
 
 def destination(request, id):
   context = {

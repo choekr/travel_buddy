@@ -20,7 +20,7 @@ class UserManager(models.Manager):
       errors.append("Your name can only contain letters")
     elif not USERNAME_REGEX.match(data['username']):
       errors.append("Username may not contain anything else than alphabets and numbers")
-    elif (data['password']<8):
+    elif len(data['password'])<8:
       errors.append("Password must be at least 8 characters long")
     elif not (data['password']==data['confirm_pw']):
       errors.append("Unable to confirm password. Please enter same password you have entered above")
@@ -32,11 +32,12 @@ class UserManager(models.Manager):
       response['added'] = True
       response['new_user'] = new_user
 
+
     else:
       response['added'] = False
       response['errors'] = errors
 
-    print errors
+    print (errors)
 
     return response
 
@@ -44,7 +45,7 @@ class UserManager(models.Manager):
     response = {}
 
     user = User.objects.filter(username=data['username'])
-    
+
     if user:
       user = user[0]
       pw = data['login_pw'].encode()
@@ -53,7 +54,7 @@ class UserManager(models.Manager):
 
         response['access'] = True
         response['User'] = user
-      else: 
+      else:
         response ['access'] = False
     else:
       response['access'] = False

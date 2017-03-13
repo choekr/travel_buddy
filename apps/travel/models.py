@@ -28,7 +28,7 @@ class TripManager(models.Manager):
       response['add'] = True
       return response
 
-    else: 
+    else:
       response['add'] = False
       response['errors'] = errors
       return response

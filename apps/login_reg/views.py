@@ -15,8 +15,9 @@ def register(request):
 
   if res['added']:
     request.session['user_id'] = res['new_user'].id
-    messages.success(request, "Success! Welcom, {}!".format(res['new_user'].name))
+    messages.success(request, "Success! Welcome, {}!".format(res['new_user'].name))
     request.session['notification'] = "Registered successfully"
+    request.session['user_name'] = res['new_user'].name
     return redirect('trip0:trips')
 
   else:
